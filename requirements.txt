@@ -1,0 +1,13 @@
+numpy==1.20.1
+SQLAlchemy==1.4.7
+pymssql==2.2.0
+pytesseract==0.3.7
+pdf2image==1.14.0
+matplotlib==3.4.1
+pandas==1.2.3
+opencv-python==4.5.1.48
+PyPDF2==1.26.0
+PyMuPDF==1.18.13
+pythonRLSA==1.0.0
+sklearn
+spacy
