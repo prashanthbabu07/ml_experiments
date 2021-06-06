@@ -11,3 +11,4 @@ PyMuPDF==1.18.13
 pythonRLSA==1.0.0
 sklearn
 spacy
+layoutparser==0.2.0
