@@ -35,7 +35,7 @@ def convert_pdf_to_images(pdf_path, output_path):
 # %%
 
 # (1) read
-file_name = "/Volumes/Sandisk/Consulting/Syncortex/Projects/xtract/sample_files/endorsment/temp/page_10_1004CSR100142020100052_EQP_CT00.jpg"
+file_name = "/Volumes/Sandisk/Consulting/Syncortex/Projects/xtract/sample_files/endorsment/temp/page_3_1010CSR1202009112335479011_BOP_CT00.jpg"
 img = cv2.imread(file_name)
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
@@ -47,7 +47,15 @@ th, threshed = cv2.threshold(
 
 # (3) minAreaRect on the nozeros
 pts = cv2.findNonZero(threshed)
+
+print("pts", pts)
+
+# cv.namedWindow(source_window)
+# cv2.imshow("pts", pts)
+# cv2.waitKey()
+
 ret = cv2.minAreaRect(pts)
+print("ret", ret)
 
 (cx, cy), (w, h), ang = ret
 if w > h:
@@ -61,6 +69,9 @@ if w > h:
 # (5) find and draw the upper and lower boundary of each lines
 hist = cv2.reduce(threshed, 1, cv2.REDUCE_AVG).reshape(-1)
 
+# cv2.imshow("hist", hist);
+# cv2.waitKey()
+
 th = 2
 H, W = img.shape[:2]
 uppers = [y for y in range(H - 1) if hist[y] <= th and hist[y + 1] > th]
@@ -69,11 +80,11 @@ lowers = [y for y in range(H - 1) if hist[y] > th and hist[y + 1] <= th]
 rotated = cv2.cvtColor(threshed, cv2.COLOR_GRAY2BGR)
 for y in uppers:
     cv2.line(threshed, (0, y), (W, y), (255, 0, 0), 1)
-    print((0, y), (W, y))
+    # print((0, y), (W, y))
 
 for y in lowers:
     cv2.line(threshed, (0, y), (W, y), (0, 255, 0), 1)
-    print((0, y), (W, y))
+    # print((0, y), (W, y))
 
 temp = "/Volumes/Sandisk/Consulting/Syncortex/Projects/xtract/sample_files/endorsment/temp"
 cv2.imwrite(os.path.join(temp, "result.png"), threshed)

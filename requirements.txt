@@ -12,3 +12,5 @@ pythonRLSA==1.0.0
 sklearn
 spacy
 layoutparser==0.2.0
+bs4
+urlparse
